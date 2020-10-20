@@ -1,0 +1,63 @@
+.sidebarChannel:hover > h4 {
+    color: white;
+    background-color: #40464b;
+}
+
+.sidebarChannel > h4 {
+    display: flex;
+    padding-left: 15px;
+    align-items: center;
+    background-color: #2f3135;
+    color: gray;
+    cursor: pointer;
+}
+
+.sidebarChannel > form > h4 {
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+    align-items: center;
+    background-color: #2f3135;
+    color: gray;
+    cursor: pointer;
+}
+
+.channel_name {
+    background: transparent;
+    border: none;
+    font-size: large;
+    color: gray;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+}
+
+.channel_name:focus {
+    outline: none;
+}
+
+.sidebarChannel:hover > form > h4,
+.sidebarChannel:hover > form > h4 > .channel_name
+{
+    color: white;
+    background-color: #40464b;
+}
+
+.sidebarChannel > form > h4 > button {
+    display: none;
+}
+
+.sidebarChannel_hash {
+    font-size: 30px;
+    padding: 8px;
+}
+
+h4 > .MuiSvgIcon-root {
+    padding: 5px;
+    cursor: pointer;
+}
+
+h4 > .MuiSvgIcon-root:hover {
+    color: #d44950;
+}
