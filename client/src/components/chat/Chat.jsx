@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import { selectChannelId, selectChannelName } from "../../features/appSlice";
 import axios from "axios";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 const Chat = () => {
   const user = useSelector(selectUser);
@@ -18,26 +18,27 @@ const Chat = () => {
   const channelName = useSelector(selectChannelName);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [socket] = useState(() => io(':8000'));
+  // const [socket] = useState(() => io(':8000'));
 
   useEffect(() => {
     if (channelId) {
-      axios
-        .get(`http://localhost:8000/api/channel/${channelId}`)
-        .then((res) => {
-          setMessages(res.data.messages.reverse());
-        })
-        .catch((errors) => console.log(errors));
+      getMessages();
     }
-  }, [channelId, messages]);
+  }, [channelId]);
 
-  useEffect(() => {
-		socket.on("new_message_from_server", msg => {
-			setMessages(prevMessages => {
-				return [msg, ...prevMessages];
-			})
-		});
-	}, [socket]);
+  // useEffect(() => {
+	// 	socket.on("new_message_from_server", msg => {
+	// 		setMessages(prevMessages => {
+	// 			return [msg, ...prevMessages];
+	// 		})
+	// 	});
+	// }, [socket]);
+
+  const getMessages = () => {
+    axios.get(`http://localhost:8000/api/channel/${channelId}`)
+        .then((res) => setMessages(res.data.messages.reverse()))
+        .catch((errors) => console.log(errors));
+  }
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -51,6 +52,7 @@ const Chat = () => {
         .catch((errors) => console.log(errors));
     }
     setInput("");
+    getMessages();
   };
 
   return (

@@ -22,7 +22,7 @@ const SidebarChannel = props => {
 			.catch( errors => console.log(errors)
 		);
 	}
-
+	
 	const handleDeleteChannel = e => {
 		e.preventDefault();
 	}
@@ -33,7 +33,7 @@ const SidebarChannel = props => {
 				dispatch(
 					setChannelInfo({
 						channelId: props.channelId,
-						channelName: props.channelName
+						channelName: props.channelName,
 					})
 				)}
 		>

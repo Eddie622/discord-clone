@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
 import axios from "axios";
 import "./Login.css";
-import { Link, navigate } from "@reach/router";
+import { Link } from "@reach/router";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
@@ -27,7 +27,6 @@ const Login = () => {
 							displayName: res.data.displayName,
 							channels: res.data.channels
 						}))
-						navigate("/app");
 					}).catch(errors => console.log(errors)
 				);
 			}).catch(errors => console.log(errors), setError("Invalid Username / Password")
@@ -51,7 +50,6 @@ const Login = () => {
 							displayName: res.data.displayName,
 							channels: res.data.channels
 						}))
-						navigate("/app");
 					}).catch(errors => console.log(errors)
 				);
 			}).catch(errors => console.log(errors), setError("Invalid Username / Password")
@@ -63,7 +61,6 @@ const Login = () => {
 			<div className="login_logo">
 				<img src="https://upload.wikimedia.org/wikipedia/sco/thumb/9/98/Discord_logo.svg/800px-Discord_logo.svg.png" alt=""/>
 			</div>
-			<h3>This Project is still under development. Register or click Guest login twice to use application </h3>
 			<form onSubmit={signIn}>
 				<label htmlFor="username">
 					Username { error ? <p className="text-danger">{error}</p> : ""}

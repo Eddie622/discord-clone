@@ -10,13 +10,15 @@ import { Avatar } from "@material-ui/core";
 import MicIcon from "@material-ui/icons/Mic";
 import HeadsetIcon from "@material-ui/icons/Headset";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { selectUser } from "../../features/userSlice";
-import { useSelector } from "react-redux";
+import { logout, selectUser } from "../../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 const Sidebar = () => {
   const user = useSelector(selectUser);
   const [channels, setChannels] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -25,7 +27,14 @@ const Sidebar = () => {
         setChannels(res.data.filter((c) => c.members.includes(user._id)));
       })
       .catch((errors) => console.log(errors));
-  }, [channels, user._id]);
+  }, [user._id]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    axios.post(`http://localhost:8000/api/logout`, { }, {withCredentials : true})
+      .then((res) => console.log(res))
+      .catch((errors) => console.log(errors))
+  }
 
   const createNewChannel = () => {
     axios
@@ -107,7 +116,7 @@ const Sidebar = () => {
         <div className="sidebar_profileIcons">
           <MicIcon />
           <HeadsetIcon />
-          <SettingsIcon />
+          <SettingsIcon onClick={handleLogout} />
         </div>
       </div>
     </div>

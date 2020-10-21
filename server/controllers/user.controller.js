@@ -6,7 +6,7 @@ class UserController {
   register(req, res) {
     const user = new User(req.body);
     user.channels = []
-    
+
     user
       .save()
       .then(() => {
@@ -24,7 +24,7 @@ class UserController {
             .compare(req.body.password, user.password)
             .then((passwordIsValid) => {
               if (passwordIsValid) {
-                res.cookie("usertoken", jwt.sign({ _id: user._id }, process.env.JWT_SECRET),{httpOnly: true}).json({ msg: "success!" });
+                res.cookie("usertoken", jwt.sign({ _id: user._id }, process.env.JWT_SECRET), { httpOnly: true }).json({ msg: "success!" });
               } else {
                 res.status(400).json({ msg: "invalid login attempt" });
               }
@@ -56,34 +56,34 @@ class UserController {
       .catch((err) => res.json(err));
   };
   getAll(req, res) {
-      User.find()
-          .then( user => res.json(user) )
-          .catch( errors => res.json(errors) );
+    User.find()
+      .then(user => res.json(user))
+      .catch(errors => res.json(errors));
   };
   getOne(req, res) {
-      User.findOne({_id: req.params._id})
-          .then( user => res.json(user) )
-          .catch( errors => res.json(errors) );
+    User.findOne({ _id: req.params._id })
+      .then(user => res.json(user))
+      .catch(errors => res.json(errors));
   };
   findByUsername(req, res) {
-      User.findOne({username: req.params.username})
-          .then( user => res.json(user) )
-          .catch( errors => res.json(errors) );
+    User.findOne({ username: req.params.username })
+      .then(user => res.json(user))
+      .catch(errors => res.json(errors));
   };
   remove(req, res) {
-      User.findByIdAndRemove({_id: req.params._id})
-          .then( () => res.json({msg: "ok"}) )
-          .catch( errors => res.json(errors) );
+    User.findByIdAndRemove({ _id: req.params._id })
+      .then(() => res.json({ msg: "ok" }))
+      .catch(errors => res.json(errors));
   };
   addChannel(req, res) {
-      User.findByIdAndUpdate({_id: req.params._id}, {$push: {channels: req.body.channel_id}})
-          .then( () => res.json({msg: "ok"}) )
-          .catch( errors => res.json(errors) );
+    User.findByIdAndUpdate({ _id: req.params._id }, { $push: { channels: req.body.channel_id } })
+      .then(() => res.json({ msg: "ok" }))
+      .catch(errors => res.json(errors));
   };
   removeChannel(req, res) {
-      User.findByIdAndUpdate({_id: req.params._id}, {$pull : {channels: req.body.channel_id}})
-          .then( () => res.json({msg: "ok"}) )
-          .catch( errors => res.json(errors) );
+    User.findByIdAndUpdate({ _id: req.params._id }, { $pull: { channels: req.body.channel_id } })
+      .then(() => res.json({ msg: "ok" }))
+      .catch(errors => res.json(errors));
   };
 };
 
