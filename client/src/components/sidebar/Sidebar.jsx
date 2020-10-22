@@ -24,7 +24,7 @@ const Sidebar = () => {
     axios
       .get(`http://localhost:8000/api/channel/`)
       .then((res) => {
-        setChannels(res.data.filter((c) => c.members.includes(user._id)));
+        setChannels(res.data);
       })
       .catch((errors) => console.log(errors));
   }, [user._id]);
@@ -40,7 +40,7 @@ const Sidebar = () => {
     axios
       .post(`http://localhost:8000/api/channel`, {
         creator_id: user._id,
-        name: "ChannelName",
+        name: "NewChannel",
       })
       .then((res) => addChannel(res.data._id))
       .catch((errors) => console.log(errors));

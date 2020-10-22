@@ -5,8 +5,6 @@ const jwt = require("jsonwebtoken");
 class UserController {
   register(req, res) {
     const user = new User(req.body);
-    user.channels = []
-
     user
       .save()
       .then(() => {

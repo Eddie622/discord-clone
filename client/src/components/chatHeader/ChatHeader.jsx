@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { useSelector } from "react-redux";
 import { selectChannelName } from "../../features/appSlice";
 
-const ChatHeader = props => {
+const ChatHeader = () => {
 	const channel = useSelector(selectChannelName);
 
 	return (

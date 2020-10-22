@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ChatHeader from "../chatHeader/ChatHeader";
 import "./Chat.css";
 import Message from "../message/Message";
@@ -20,11 +20,17 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   // const [socket] = useState(() => io(':8000'));
 
+  const getMessages = useCallback(() => {
+    axios.get(`http://localhost:8000/api/channel/${channelId}`)
+        .then((res) => setMessages(res.data.messages.reverse()))
+        .catch((errors) => console.log(errors));
+  }, [channelId])
+  
   useEffect(() => {
     if (channelId) {
       getMessages();
     }
-  }, [channelId]);
+  }, [channelId, getMessages]);
 
   // useEffect(() => {
 	// 	socket.on("new_message_from_server", msg => {
@@ -34,11 +40,6 @@ const Chat = () => {
 	// 	});
 	// }, [socket]);
 
-  const getMessages = () => {
-    axios.get(`http://localhost:8000/api/channel/${channelId}`)
-        .then((res) => setMessages(res.data.messages.reverse()))
-        .catch((errors) => console.log(errors));
-  }
 
   const sendMessage = (e) => {
     e.preventDefault();
