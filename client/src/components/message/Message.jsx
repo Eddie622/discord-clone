@@ -24,8 +24,8 @@ const Message = (props) => {
       .catch((errors) => console.log(errors));
   }, [props.user_id]);
 
-  const handleDelete = () => {
-    axios
+  const handleDelete = async () => {
+    await axios
       .put(
         `http://localhost:8000/api/channel/${channelId}/remove_message`,
         {
@@ -33,8 +33,9 @@ const Message = (props) => {
         },
         { withCredentials: true }
       )
-      .then((res) => console.log(res), props.getMessages())
+      .then((res) => console.log(res))
       .catch((errors) => console.log(errors));
+    props.getMessages();
   };
 
   return (

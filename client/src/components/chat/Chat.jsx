@@ -43,10 +43,10 @@ const Chat = () => {
   // 	});
   // }, [socket]);
 
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
     if (input) {
-      axios
+      await axios
         .put(
           `http://localhost:8000/api/channel/${channelId}/add_message`,
           {

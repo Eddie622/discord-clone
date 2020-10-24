@@ -46,8 +46,8 @@ const Sidebar = () => {
       .catch((errors) => console.log(errors));
   };
 
-  const createNewChannel = () => {
-    axios
+  const createNewChannel = async () => {
+    await axios
       .post(
         `http://localhost:8000/api/channel`,
         {
@@ -56,8 +56,9 @@ const Sidebar = () => {
         },
         { withCredentials: true }
       )
-      .then(getChannels())
+      .then((res) => console.log(res))
       .catch((errors) => console.log(errors));
+    getChannels();
   };
 
   return (

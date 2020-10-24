@@ -33,14 +33,15 @@ const SidebarChannel = (props) => {
       .catch((errors) => console.log(errors));
   };
 
-  const handleDeleteChannel = (e) => {
+  const handleDeleteChannel = async (e) => {
     e.preventDefault();
-    axios
+    await axios
       .delete(`http://localhost:8000/api/channel/${props.channelId}`, {
         withCredentials: true,
       })
-      .then((res) => console.log(res), props.getChannels())
+      .then((res) => console.log(res))
       .catch((errors) => console.log(errors));
+    props.getChannels();
   };
 
   return (
