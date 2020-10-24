@@ -15,7 +15,9 @@ const Message = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/user/${props.user_id}`)
+      .get(`http://localhost:8000/api/user/${props.user_id}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setCreator(res.data);
       })

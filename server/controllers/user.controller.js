@@ -35,14 +35,6 @@ class UserController {
       .catch((err) => res.json(err));
   };
   logout(req, res) {
-    res
-      .cookie("usertoken", jwt.sign({ _id: "" }, process.env.JWT_SECRET), {
-        httpOnly: true,
-        maxAge: 0,
-      })
-      .json({ msg: "ok" });
-  };
-  logout2(req, res) {
     res.clearCookie("usertoken");
     res.json({ msg: "usertoken cookie cleared" });
   };
@@ -53,34 +45,9 @@ class UserController {
       .then((user) => res.json(user))
       .catch((err) => res.json(err));
   };
-  getAll(req, res) {
-    User.find()
-      .then(user => res.json(user))
-      .catch(errors => res.json(errors));
-  };
   getOne(req, res) {
     User.findOne({ _id: req.params._id })
       .then(user => res.json(user))
-      .catch(errors => res.json(errors));
-  };
-  findByUsername(req, res) {
-    User.findOne({ username: req.params.username })
-      .then(user => res.json(user))
-      .catch(errors => res.json(errors));
-  };
-  remove(req, res) {
-    User.findByIdAndRemove({ _id: req.params._id })
-      .then(() => res.json({ msg: "ok" }))
-      .catch(errors => res.json(errors));
-  };
-  addChannel(req, res) {
-    User.findByIdAndUpdate({ _id: req.params._id }, { $push: { channels: req.body.channel_id } })
-      .then(() => res.json({ msg: "ok" }))
-      .catch(errors => res.json(errors));
-  };
-  removeChannel(req, res) {
-    User.findByIdAndUpdate({ _id: req.params._id }, { $pull: { channels: req.body.channel_id } })
-      .then(() => res.json({ msg: "ok" }))
       .catch(errors => res.json(errors));
   };
 };

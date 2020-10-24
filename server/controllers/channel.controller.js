@@ -39,11 +39,6 @@ class ChannelController {
             .then(() => res.json({ msg: "ok" }))
             .catch(errors => res.json(errors));
     }
-    addMember(req, res) {
-        Channel.findByIdAndUpdate({ _id: req.params._id }, { $push: { members: req.body._id } })
-            .then(() => res.json({ msg: "ok" }))
-            .catch(errors => res.json(errors));
-    }
 }
 
 module.exports = new ChannelController();
