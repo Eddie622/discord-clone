@@ -13,17 +13,18 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const signIn = (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
 
-    axios
+    await axios
       .post(
         `http://localhost:8000/api/login`,
         { username, password },
         { withCredentials: true }
       )
-      .then((res) => {
-        axios
+      .then(async (res) => {
+        console.log(res);
+        await axios
           .get(`http://localhost:8000/api/users/loggedin`, {
             withCredentials: true,
           })
@@ -40,23 +41,24 @@ const Login = () => {
           })
           .catch((errors) => console.log(errors));
       })
-      .catch(
-        (errors) => console.log(errors),
-        setError("Invalid Username / Password")
-      );
+      .catch((errors) => {
+        if (errors) {
+          setError("Invalid Username / Password");
+        }
+      });
   };
 
-  const guestSignIn = (e) => {
+  const guestSignIn = async (e) => {
     e.preventDefault();
 
-    axios
+    await axios
       .post(
         `http://localhost:8000/api/login`,
         { username: "guestuser", password: "guestpass" },
         { withCredentials: true }
       )
-      .then((res) => {
-        axios
+      .then(async (res) => {
+        await axios
           .get(`http://localhost:8000/api/users/loggedin`, {
             withCredentials: true,
           })

@@ -12,9 +12,9 @@ const SidebarChannel = (props) => {
   const user = useSelector(selectUser);
   const [channelName, setChannelName] = useState(props.channelName);
 
-  const handleChangeChannelName = (e) => {
+  const handleChangeChannelName = async (e) => {
     e.preventDefault();
-    axios
+    await axios
       .put(
         `http://localhost:8000/api/channel/${props.channelId}`,
         {
@@ -22,19 +22,24 @@ const SidebarChannel = (props) => {
         },
         { withCredentials: true }
       )
-      .then(
-        (res) => console.log(res),
-        dispatch(
-          setChannelInfo({
-            channelName: channelName,
-          })
-        )
-      )
+      .then((res) => console.log(res))
       .catch((errors) => console.log(errors));
+    dispatch(
+      setChannelInfo({
+        channelName: channelName,
+      })
+    );
+    props.getChannels();
   };
 
   const handleDeleteChannel = async (e) => {
-    e.preventDefault();
+    e.stopPropagation();
+    dispatch(
+      setChannelInfo({
+        channelId: null,
+        channelName: null,
+      })
+    );
     await axios
       .delete(`http://localhost:8000/api/channel/${props.channelId}`, {
         withCredentials: true,
