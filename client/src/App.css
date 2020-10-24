@@ -1,29 +1,29 @@
 .app {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgb(85, 83, 83); 
-    border-radius: 10px;
+  background: rgb(85, 83, 83);
+  border-radius: 10px;
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active  {
-    -webkit-box-shadow: 0 0 0 30px #2f3135 inset !important;
-    box-shadow: 0 0 0 30px #2f3135 inset !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #2f3135 inset !important;
+  box-shadow: 0 0 0 30px #2f3135 inset !important;
 }
 input:-webkit-autofill {
-    -webkit-text-fill-color: white !important;
+  -webkit-text-fill-color: white !important;
 }

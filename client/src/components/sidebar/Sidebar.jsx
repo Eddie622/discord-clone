@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./Sidebar.css";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddIcon from "@material-ui/icons/Add";
@@ -6,35 +6,45 @@ import SidebarChannel from "../sidebarChannel/SidebarChannel";
 import SignalCellularAltIcon from "@material-ui/icons/SignalCellularAlt";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import CallIcon from "@material-ui/icons/Call";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Tooltip } from "@material-ui/core";
 import MicIcon from "@material-ui/icons/Mic";
 import HeadsetIcon from "@material-ui/icons/Headset";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { logout, selectUser } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { selectChannels, setChannels } from "../../features/appSlice";
 
 const Sidebar = () => {
   const user = useSelector(selectUser);
-  const [channels, setChannels] = useState([]);
+  const channels = useSelector(selectChannels);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const getChannels = useCallback(() => {
     axios
       .get(`http://localhost:8000/api/channel/`)
-      .then((res) => {
-        setChannels(res.data);
-      })
+      .then((res) =>
+        dispatch(
+          setChannels({
+            channels: res.data,
+          })
+        )
+      )
       .catch((errors) => console.log(errors));
-  }, [user._id]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    getChannels();
+  }, [user._id, getChannels]);
 
   const handleLogout = () => {
     dispatch(logout());
-    axios.post(`http://localhost:8000/api/logout`, { }, {withCredentials : true})
+    axios
+      .post(`http://localhost:8000/api/logout`, {}, { withCredentials: true })
       .then((res) => console.log(res))
-      .catch((errors) => console.log(errors))
-  }
+      .catch((errors) => console.log(errors));
+  };
 
   const createNewChannel = () => {
     axios
@@ -42,26 +52,8 @@ const Sidebar = () => {
         creator_id: user._id,
         name: "NewChannel",
       })
-      .then((res) => addChannel(res.data._id))
+      .then(getChannels())
       .catch((errors) => console.log(errors));
-  };
-
-  const addChannel = (newChannel_id) => {
-    axios
-      .put(`http://localhost:8000/api/user/${user._id}/add_channel`, {
-        channel_id: newChannel_id,
-      })
-      .then((res) => console.log(res))
-      .catch((errors) => console.log(errors));
-  };
-
-  const handleAddChannel = (e) => {
-    e.preventDefault();
-    try {
-      createNewChannel();
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (
@@ -77,7 +69,12 @@ const Sidebar = () => {
             <ExpandMoreIcon />
             <h4>Text Channels</h4>
           </div>
-          <AddIcon onClick={handleAddChannel} className="sidebar_addChannel" />
+          <Tooltip title="create channel" placement="top">
+            <AddIcon
+              onClick={createNewChannel}
+              className="sidebar_addChannel"
+            />
+          </Tooltip>
         </div>
 
         <div className="sidebar_channelsList">
@@ -87,6 +84,7 @@ const Sidebar = () => {
               channelId={_id}
               channelName={name}
               creatorID={creator_id}
+              getChannels={getChannels}
             />
           ))}
         </div>
@@ -116,7 +114,9 @@ const Sidebar = () => {
         <div className="sidebar_profileIcons">
           <MicIcon />
           <HeadsetIcon />
-          <SettingsIcon onClick={handleLogout} />
+          <Tooltip title="logout">
+            <SettingsIcon className="setting" onClick={handleLogout} />
+          </Tooltip>
         </div>
       </div>
     </div>

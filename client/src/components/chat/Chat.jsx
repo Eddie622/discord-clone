@@ -21,11 +21,12 @@ const Chat = () => {
   // const [socket] = useState(() => io(':8000'));
 
   const getMessages = useCallback(() => {
-    axios.get(`http://localhost:8000/api/channel/${channelId}`)
-        .then((res) => setMessages(res.data.messages.reverse()))
-        .catch((errors) => console.log(errors));
-  }, [channelId])
-  
+    axios
+      .get(`http://localhost:8000/api/channel/${channelId}`)
+      .then((res) => setMessages(res.data.messages.reverse()))
+      .catch((errors) => console.log(errors));
+  }, [channelId]);
+
   useEffect(() => {
     if (channelId) {
       getMessages();
@@ -33,13 +34,12 @@ const Chat = () => {
   }, [channelId, getMessages]);
 
   // useEffect(() => {
-	// 	socket.on("new_message_from_server", msg => {
-	// 		setMessages(prevMessages => {
-	// 			return [msg, ...prevMessages];
-	// 		})
-	// 	});
-	// }, [socket]);
-
+  // 	socket.on("new_message_from_server", msg => {
+  // 		setMessages(prevMessages => {
+  // 			return [msg, ...prevMessages];
+  // 		})
+  // 	});
+  // }, [socket]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -68,6 +68,7 @@ const Chat = () => {
             content={message.content}
             user_id={message.creator_id}
             timestamp={message.createdAt}
+            getMessages={getMessages}
           />
         ))}
       </div>

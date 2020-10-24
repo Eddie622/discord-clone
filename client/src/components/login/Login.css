@@ -1,76 +1,76 @@
 .login {
-    display: grid;
-    place-items: center;
-    color: white;
-    background-color: #363a3f;
-    height: 100vh;
-    width: 100%;
+  display: grid;
+  place-items: center;
+  color: white;
+  background-color: #363a3f;
+  height: 100vh;
+  width: 100%;
 }
 
 .login > form {
-    display: flex;
-    flex-direction: column;
-    background-color: #474b53;
-    border-radius: 5px;
-    padding: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: #474b53;
+  border-radius: 5px;
+  padding: 30px;
 }
 
 .login > form > label {
-    color: #a5aaaf;
+  color: #a5aaaf;
 }
 
 .login > form > input {
-    background-color: #2f3135;
-    border-radius: 3px;
-    padding: 15px;
-    color: white;
-    border: none;
-    margin: 10px 0;
+  background-color: #2f3135;
+  border-radius: 3px;
+  padding: 15px;
+  color: white;
+  border: none;
+  margin: 10px 0;
 }
 
 .login > form > input:hover {
-   outline-color: black;
+  outline-color: black;
 }
 
 .login > form > button {
-    width: 400px;
-    background-color: #738adb;
-    color: #eff2f5;
-    font-weight: 800;
-    margin-top: 15px;
+  width: 400px;
+  background-color: #738adb;
+  color: #eff2f5;
+  font-weight: 800;
+  margin-top: 15px;
 }
 
 .login > form > button:hover {
-    background-color:#363a3f;
-    color: #738adb;
+  background-color: #363a3f;
+  color: #738adb;
 }
 
 .login > div > img {
-    object-fit: contain;
-    background-color: #474b53;
-    height: 150px;
-    border-radius: 5px;
-    padding: 20px 40px;
+  object-fit: contain;
+  background-color: #474b53;
+  height: 150px;
+  border-radius: 5px;
+  padding: 20px 40px;
 }
 
 .register_link {
-    text-align: center;
-    margin-top: 20px;
-    color: #a5aaaf;
+  text-align: center;
+  margin-top: 20px;
+  color: #a5aaaf;
 }
 
 .register_link:visited {
-    color: #a5aaaf;
+  color: #a5aaaf;
 }
 
 .register_link:hover {
-    color: white;
+  color: white;
 }
 
 .login > form > .guestLogin {
-    background-color: #28a745;
+  background-color: #28a745;
 }
 
 .login > form > .guestLogin:hover {
-    color: white;
+  color: white;
 }
