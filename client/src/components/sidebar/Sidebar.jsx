@@ -23,7 +23,7 @@ const Sidebar = () => {
 
   const getChannels = useCallback(() => {
     axios
-      .get(`http://localhost:8000/api/channel/`)
+      .get(`http://localhost:8000/api/channel/`, { withCredentials: true })
       .then((res) =>
         dispatch(
           setChannels({
@@ -48,10 +48,14 @@ const Sidebar = () => {
 
   const createNewChannel = () => {
     axios
-      .post(`http://localhost:8000/api/channel`, {
-        creator_id: user._id,
-        name: "NewChannel",
-      })
+      .post(
+        `http://localhost:8000/api/channel`,
+        {
+          creator_id: user._id,
+          name: "NewChannel",
+        },
+        { withCredentials: true }
+      )
       .then(getChannels())
       .catch((errors) => console.log(errors));
   };

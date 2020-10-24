@@ -15,9 +15,13 @@ const SidebarChannel = (props) => {
   const handleChangeChannelName = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8000/api/channel/${props.channelId}`, {
-        name: channelName,
-      })
+      .put(
+        `http://localhost:8000/api/channel/${props.channelId}`,
+        {
+          name: channelName,
+        },
+        { withCredentials: true }
+      )
       .then(
         (res) => console.log(res),
         dispatch(
@@ -32,7 +36,9 @@ const SidebarChannel = (props) => {
   const handleDeleteChannel = (e) => {
     e.preventDefault();
     axios
-      .delete(`http://localhost:8000/api/channel/${props.channelId}`)
+      .delete(`http://localhost:8000/api/channel/${props.channelId}`, {
+        withCredentials: true,
+      })
       .then((res) => console.log(res), props.getChannels())
       .catch((errors) => console.log(errors));
   };

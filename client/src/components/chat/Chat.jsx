@@ -22,7 +22,9 @@ const Chat = () => {
 
   const getMessages = useCallback(() => {
     axios
-      .get(`http://localhost:8000/api/channel/${channelId}`)
+      .get(`http://localhost:8000/api/channel/${channelId}`, {
+        withCredentials: true,
+      })
       .then((res) => setMessages(res.data.messages.reverse()))
       .catch((errors) => console.log(errors));
   }, [channelId]);
@@ -45,10 +47,14 @@ const Chat = () => {
     e.preventDefault();
     if (input) {
       axios
-        .put(`http://localhost:8000/api/channel/${channelId}/add_message`, {
-          creator_id: user._id,
-          content: input,
-        })
+        .put(
+          `http://localhost:8000/api/channel/${channelId}/add_message`,
+          {
+            creator_id: user._id,
+            content: input,
+          },
+          { withCredentials: true }
+        )
         .then((res) => console.log(res))
         .catch((errors) => console.log(errors));
     }
