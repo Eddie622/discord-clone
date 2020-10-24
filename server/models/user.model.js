@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -8,6 +9,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Username is required"],
       minlength: [6, "Username must be 6 characters or longer"],
       maxlength: [12, "Username name must be 12 characters or less"],
+      unique: true
     },
     photo: {
       type: String,
@@ -27,13 +29,15 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+UserSchema.plugin(uniqueValidator, { message: "Username is already taken" });
+
 UserSchema.virtual("confirmPassword")
   .get(() => this._confirmPassword)
   .set((value) => (this._confirmPassword = value));
 
 UserSchema.pre("validate", function (next) {
   if (this.password !== this.confirmPassword) {
-    this.invalidate("confirmPassword", "Password must match confirm password");
+    this.invalidate("confirmPassword", "Passwords must match");
   }
   next();
 });
