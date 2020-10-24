@@ -73,6 +73,7 @@ const Register = () => {
         <input
           name="photo"
           type="text"
+          autoComplete="off"
           onChange={(e) => setPhoto(e.target.value)}
         ></input>
         <label htmlFor="password">
@@ -85,6 +86,7 @@ const Register = () => {
         </label>
         <input
           type="password"
+          autoComplete="new-password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
         <label htmlFor="confirmPassword">
@@ -100,6 +102,7 @@ const Register = () => {
         <input
           name="confirmPassword"
           type="password"
+          autoComplete="new-password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         ></input>
         <Button type="submit">Submit</Button>

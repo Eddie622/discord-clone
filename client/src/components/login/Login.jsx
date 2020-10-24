@@ -49,13 +49,10 @@ const Login = () => {
   const guestSignIn = (e) => {
     e.preventDefault();
 
-    setUsername("guestuser");
-    setPassword("guestpass");
-
     axios
       .post(
         `http://localhost:8000/api/login`,
-        { username, password },
+        { username: "guestuser", password: "guestpass" },
         { withCredentials: true }
       )
       .then((res) => {
@@ -76,10 +73,7 @@ const Login = () => {
           })
           .catch((errors) => console.log(errors));
       })
-      .catch(
-        (errors) => console.log(errors),
-        setError("Invalid Username / Password")
-      );
+      .catch((errors) => console.log(errors));
   };
 
   return (
